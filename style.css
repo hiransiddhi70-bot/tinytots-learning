@@ -131,3 +131,60 @@ canvas{
   border-radius:20px;
   font-size:18px;
 }
+.tools{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+  align-items:center;
+}
+
+.color{
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+.red{
+  background:red;
+}
+
+.blue{
+  background:blue;
+}
+
+.green{
+  background:green;
+}
+
+.yellow{
+  background:yellow;
+}
+
+.purple{
+  background:purple;
+}
+
+.black{
+  background:black;
+}
+
+.tool-btn{
+  border:none;
+  background:#ff69b4;
+  color:white;
+  padding:12px 18px;
+  border-radius:15px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.brush-select{
+  padding:12px;
+  border-radius:15px;
+  border:none;
+  font-size:16px;
+}
