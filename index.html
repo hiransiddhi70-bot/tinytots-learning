@@ -254,7 +254,40 @@
 
   </div>
 
+<div class="tools">
+
+  <button onclick="changeColor('red')" class="color red"></button>
+
+  <button onclick="changeColor('blue')" class="color blue"></button>
+
+  <button onclick="changeColor('green')" class="color green"></button>
+
+  <button onclick="changeColor('yellow')" class="color yellow"></button>
+
+  <button onclick="changeColor('purple')" class="color purple"></button>
+
+  <button onclick="changeColor('black')" class="color black"></button>
+
+  <button onclick="eraserMode()" class="tool-btn">
+    ❌ Eraser
+  </button>
+
+  <select onchange="changeBrush(this.value)" class="brush-select">
+
+    <option value="3">Small Brush</option>
+
+    <option value="6" selected>Medium Brush</option>
+
+    <option value="12">Big Brush</option>
+
+    <option value="20">Magic Brush</option>
+
+  </select>
+
+</div>
+
   <script src="script.js"></script>
+<canvas id="canvas"></canvas>
 
 </body>
 </html>
