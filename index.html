@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TinyTots Ultimate</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TinyTots Ultimate</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 </head>
 
 <body>
@@ -12,11 +19,12 @@
 <!-- LOGIN -->
 <div id="login" class="section active">
 
-  <h1>🌈 TinyTots Ultimate</h1>
+  <h1>🌈 TinyTots Login</h1>
 
-  <input id="kidName" placeholder="Enter Name 👶">
+  <input id="email" placeholder="Email">
+  <input id="pass" type="password" placeholder="Password">
 
-  <button onclick="startApp()">Start 🚀</button>
+  <button onclick="login()">Login / Signup</button>
 
 </div>
 
@@ -25,76 +33,68 @@
 
   <div class="topbar">
     <h1>🌈 TinyTots</h1>
-    <p id="status">⭐ Stars: 0 | 🏆 Level: 1</p>
+    <p id="status">⭐ 0 | 🏆 Level 1</p>
   </div>
 
   <div class="menu">
-
-    <button onclick="showSection('alphabets')">🔤 ABC</button>
-    <button onclick="showSection('numbers')">🔢 Numbers</button>
-    <button onclick="showSection('animals')">🐶 Animals</button>
-    <button onclick="showSection('balloon')">🎈 Game</button>
-    <button onclick="showSection('mini')">🎮 Quiz</button>
-
+    <button onclick="show('abc')">🔤 ABC</button>
+    <button onclick="show('num')">🔢 1-100</button>
+    <button onclick="show('ani')">🐶 Animals</button>
+    <button onclick="show('ball')">🎈 Game</button>
+    <button onclick="show('draw')">🎨 Draw</button>
   </div>
 
-  <!-- ALPHABETS -->
-  <div id="alphabets" class="section">
-    <h2>A to Z</h2>
-    <div id="alphabetBox" class="card-container"></div>
+  <!-- ABC -->
+  <div id="abc" class="section">
+    <h2>Alphabet A-Z</h2>
+    <div id="abcBox" class="grid"></div>
   </div>
 
-  <!-- NUMBERS -->
-  <div id="numbers" class="section">
-    <h2>1 to 100</h2>
-    <div id="numberBox" class="numbers-grid"></div>
+  <!-- NUM -->
+  <div id="num" class="section">
+    <h2>Numbers</h2>
+    <div id="numBox" class="grid"></div>
   </div>
 
   <!-- ANIMALS -->
-  <div id="animals" class="section">
+  <div id="ani" class="section">
+
     <h2>Animals</h2>
 
-    <div class="card-container">
+    <div class="grid">
 
-      <div class="animal" onclick="speak('Dog Woof')">🐶 Dog</div>
-      <div class="animal" onclick="speak('Cat Meow')">🐱 Cat</div>
-      <div class="animal" onclick="speak('Lion Roar')">🦁 Lion</div>
-      <div class="animal" onclick="speak('Cow Moo')">🐄 Cow</div>
+      <div class="card" onclick="sound('Dog Woof')">🐶 Dog</div>
+      <div class="card" onclick="sound('Cat Meow')">🐱 Cat</div>
+      <div class="card" onclick="sound('Lion Roar')">🦁 Lion</div>
+      <div class="card" onclick="sound('Cow Moo')">🐄 Cow</div>
 
     </div>
 
   </div>
 
-  <!-- 🎈 BALLOON GAME -->
-  <div id="balloon" class="section">
+  <!-- BALLOON -->
+  <div id="ball" class="section">
 
-    <h2>🎈 Pop Balloons</h2>
+    <h2>🎈 Balloon Game</h2>
 
-    <button onclick="startBalloon()">Start Game</button>
+    <button onclick="balloons()">Start</button>
 
-    <div id="gameArea"></div>
+    <div id="game"></div>
 
   </div>
 
-  <!-- 🎮 MINI GAME -->
-  <div id="mini" class="section">
+  <!-- DRAW -->
+  <div id="draw" class="section">
 
-    <h2>🎮 Quiz Game</h2>
+    <h2>🎨 Drawing</h2>
 
-    <p id="question"></p>
+    <button onclick="clearCanvas()">Clear</button>
 
-    <button onclick="answer(1)">Apple</button>
-    <button onclick="answer(2)">Banana</button>
-    <button onclick="answer(3)">Cat</button>
+    <canvas id="canvas"></canvas>
 
   </div>
 
 </div>
-
-<!-- MUSIC -->
-<audio id="bgmusic" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
 
 <script src="script.js"></script>
 </body>
