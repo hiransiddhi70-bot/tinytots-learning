@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TinyTots Learning</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <h1>🌈 TinyTots Learning 🌈</h1>
+    <p>Fun Learning For Kids</p>
+  </div>
+
+  <div class="menu">
+
+    <button onclick="showSection('alphabets')">
+      🔤 Alphabets
+    </button>
+
+    <button onclick="showSection('numbers')">
+      🔢 Numbers
+    </button>
+
+    <button onclick="showSection('animals')">
+      🐶 Animals
+    </button>
+
+    <button onclick="showSection('reading')">
+      📖 Reading
+    </button>
+
+    <button onclick="showSection('drawing')">
+      🎨 Drawing
+    </button>
+
+  </div>
+
+  <!-- ALPHABETS -->
+
+  <div id="alphabets" class="section active">
+
+    <h2>Learn Alphabets</h2>
+
+    <div class="card-container">
+
+      <div class="card" onclick="speak('A for Apple')">
+        <h1>A</h1>
+        <p>Apple 🍎</p>
+      </div>
+
+      <div class="card" onclick="speak('B for Ball')">
+        <h1>B</h1>
+        <p>Ball ⚽</p>
+      </div>
+
+      <div class="card" onclick="speak('C for Cat')">
+        <h1>C</h1>
+        <p>Cat 🐱</p>
+      </div>
+
+      <div class="card" onclick="speak('D for Dog')">
+        <h1>D</h1>
+        <p>Dog 🐶</p>
+      </div>
+
+      <div class="card" onclick="speak('E for Elephant')">
+        <h1>E</h1>
+        <p>Elephant 🐘</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- NUMBERS -->
+
+  <div id="numbers" class="section">
+
+    <h2>Numbers Learning</h2>
+
+    <div class="numbers-grid" id="numbersGrid"></div>
+
+  </div>
+
+  <!-- ANIMALS -->
+
+  <div id="animals" class="section">
+
+    <h2>Animals & Sounds</h2>
+
+    <div class="card-container">
+
+      <div class="animal-card" onclick="playAnimal('dog')">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png">
+        <p>Dog 🐶</p>
+      </div>
+
+      <div class="animal-card" onclick="playAnimal('cat')">
+        <img src="https://cdn-icons-png.flaticon.com/512/2138/2138440.png">
+        <p>Cat 🐱</p>
+      </div>
+
+      <div class="animal-card" onclick="playAnimal('lion')">
+        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998627.png">
+        <p>Lion 🦁</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- READING -->
+
+  <div id="reading" class="section">
+
+    <h2>Reading Practice</h2>
+
+    <div class="reading-box">
+
+      <p onclick="speak(this.innerText)">
+        The cat is red.
+      </p>
+
+      <p onclick="speak(this.innerText)">
+        I love my school.
+      </p>
+
+      <p onclick="speak(this.innerText)">
+        The sun is bright.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- DRAWING -->
+
+  <div id="drawing" class="section">
+
+    <h2>Drawing Pad</h2>
+
+    <canvas id="canvas"></canvas>
+
+    <button class="clear-btn" onclick="clearCanvas()">
+      Clear Drawing
+    </button>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
