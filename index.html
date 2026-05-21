@@ -1,293 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TinyTots Learning</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- LOGIN SCREEN -->
+<div id="login" class="section active">
+
+  <h1>🌈 TinyTots Learning</h1>
+  <p>Enter your name 👶</p>
+
+  <input id="kidName" placeholder="Your Name">
+
+  <button onclick="startApp()">Start Learning 🚀</button>
+
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+
   <div class="topbar">
-    <h1>🌈 TinyTots Learning 🌈</h1>
-    <p>Fun Learning For Kids</p>
+    <h1>🌈 TinyTots Learning</h1>
   </div>
 
   <div class="menu">
 
-    <button onclick="showSection('alphabets')">
-      🔤 Alphabets
-    </button>
-
-    <button onclick="showSection('numbers')">
-      🔢 Numbers
-    </button>
-
-    <button onclick="showSection('animals')">
-      🐶 Animals
-    </button>
-
-    <button onclick="showSection('reading')">
-      📖 Reading
-    </button>
-
-    <button onclick="showSection('drawing')">
-      🎨 Drawing
-    </button>
+    <button onclick="showSection('alphabets')">🔤 Alphabets</button>
+    <button onclick="showSection('numbers')">🔢 Numbers</button>
+    <button onclick="showSection('animals')">🐶 Animals</button>
+    <button onclick="showSection('rhymes')">🎵 Rhymes</button>
+    <button onclick="showSection('drawing')">🎨 Drawing</button>
 
   </div>
 
   <!-- ALPHABETS -->
+  <div id="alphabets" class="section">
 
-  <div id="alphabets" class="section active">
+    <h2>Learn A to Z</h2>
 
-    <h2>Learn Alphabets</h2>
-<div class="card-container">
+    <div class="card-container" id="alphabetBox"></div>
 
-  <div class="card" onclick="speak('A for Apple')">
-    <h1>A</h1>
-    <p>Apple 🍎</p>
   </div>
 
-  <div class="card" onclick="speak('B for Ball')">
-    <h1>B</h1>
-    <p>Ball ⚽</p>
-  </div>
-
-  <div class="card" onclick="speak('C for Cat')">
-    <h1>C</h1>
-    <p>Cat 🐱</p>
-  </div>
-
-  <div class="card" onclick="speak('D for Dog')">
-    <h1>D</h1>
-    <p>Dog 🐶</p>
-  </div>
-
-  <div class="card" onclick="speak('E for Elephant')">
-    <h1>E</h1>
-    <p>Elephant 🐘</p>
-  </div>
-
-  <div class="card" onclick="speak('F for Fish')">
-    <h1>F</h1>
-    <p>Fish 🐟</p>
-  </div>
-
-  <div class="card" onclick="speak('G for Grapes')">
-    <h1>G</h1>
-    <p>Grapes 🍇</p>
-  </div>
-
-  <div class="card" onclick="speak('H for Hen')">
-    <h1>H</h1>
-    <p>Hen 🐔</p>
-  </div>
-
-  <div class="card" onclick="speak('I for Ice Cream')">
-    <h1>I</h1>
-    <p>Ice Cream 🍦</p>
-  </div>
-
-  <div class="card" onclick="speak('J for Joker')">
-    <h1>J</h1>
-    <p>Joker 🤡</p>
-  </div>
-
-  <div class="card" onclick="speak('K for Kite')">
-    <h1>K</h1>
-    <p>Kite 🪁</p>
-  </div>
-
-  <div class="card" onclick="speak('L for Lion')">
-    <h1>L</h1>
-    <p>Lion 🦁</p>
-  </div>
-
-  <div class="card" onclick="speak('M for Mango')">
-    <h1>M</h1>
-    <p>Mango 🥭</p>
-  </div>
-
-  <div class="card" onclick="speak('N for Nest')">
-    <h1>N</h1>
-    <p>Nest 🪺</p>
-  </div>
-
-  <div class="card" onclick="speak('O for Orange')">
-    <h1>O</h1>
-    <p>Orange 🍊</p>
-  </div>
-
-  <div class="card" onclick="speak('P for Parrot')">
-    <h1>P</h1>
-    <p>Parrot 🦜</p>
-  </div>
-
-  <div class="card" onclick="speak('Q for Queen')">
-    <h1>Q</h1>
-    <p>Queen 👑</p>
-  </div>
-
-  <div class="card" onclick="speak('R for Rabbit')">
-    <h1>R</h1>
-    <p>Rabbit 🐰</p>
-  </div>
-
-  <div class="card" onclick="speak('S for Sun')">
-    <h1>S</h1>
-    <p>Sun ☀️</p>
-  </div>
-
-  <div class="card" onclick="speak('T for Tiger')">
-    <h1>T</h1>
-    <p>Tiger 🐯</p>
-  </div>
-
-  <div class="card" onclick="speak('U for Umbrella')">
-    <h1>U</h1>
-    <p>Umbrella ☂️</p>
-  </div>
-
-  <div class="card" onclick="speak('V for Van')">
-    <h1>V</h1>
-    <p>Van 🚐</p>
-  </div>
-
-  <div class="card" onclick="speak('W for Watch')">
-    <h1>W</h1>
-    <p>Watch ⌚</p>
-  </div>
-
-  <div class="card" onclick="speak('X for Xylophone')">
-    <h1>X</h1>
-    <p>Xylophone 🎵</p>
-  </div>
-
-  <div class="card" onclick="speak('Y for Yak')">
-    <h1>Y</h1>
-    <p>Yak 🐂</p>
-  </div>
-
-  <div class="card" onclick="speak('Z for Zebra')">
-    <h1>Z</h1>
-    <p>Zebra 🦓</p>
-  </div>
-
-         </div>
-
-      </div>
-    
- <!-- NUMBERS -->
-
+  <!-- NUMBERS -->
   <div id="numbers" class="section">
 
-    <h2>Numbers Learning</h2>
+    <h2>Numbers 1–100</h2>
 
-    <div class="numbers-grid" id="numbersGrid"></div>
+    <div class="numbers-grid" id="numbersBox"></div>
 
   </div>
 
   <!-- ANIMALS -->
-
   <div id="animals" class="section">
 
     <h2>Animals & Sounds</h2>
 
     <div class="card-container">
 
-      <div class="animal-card" onclick="playAnimal('dog')">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png">
-        <p>Dog 🐶</p>
-      </div>
-
-      <div class="animal-card" onclick="playAnimal('cat')">
-        <img src="https://cdn-icons-png.flaticon.com/512/2138/2138440.png">
-        <p>Cat 🐱</p>
-      </div>
-
-      <div class="animal-card" onclick="playAnimal('lion')">
-        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998627.png">
-        <p>Lion 🦁</p>
-      </div>
+      <div class="animal-card" onclick="playAnimal('dog')">🐶 Dog</div>
+      <div class="animal-card" onclick="playAnimal('cat')">🐱 Cat</div>
+      <div class="animal-card" onclick="playAnimal('lion')">🦁 Lion</div>
+      <div class="animal-card" onclick="playAnimal('cow')">🐄 Cow</div>
+      <div class="animal-card" onclick="playAnimal('duck')">🦆 Duck</div>
 
     </div>
 
   </div>
 
-  <!-- READING -->
+  <!-- RHYMES -->
+  <div id="rhymes" class="section">
 
-  <div id="reading" class="section">
-
-    <h2>Reading Practice</h2>
+    <h2>🎵 Nursery Rhymes</h2>
 
     <div class="reading-box">
 
-      <p onclick="speak(this.innerText)">
-        The cat is red.
-      </p>
-
-      <p onclick="speak(this.innerText)">
-        I love my school.
-      </p>
-
-      <p onclick="speak(this.innerText)">
-        The sun is bright.
-      </p>
+      <p onclick="speak('Twinkle Twinkle Little Star')">🌟 Twinkle Twinkle</p>
+      <p onclick="speak('Johny Johny Yes Papa')">👶 Johny Johny</p>
+      <p onclick="speak('Baa Baa Black Sheep')">🐑 Black Sheep</p>
 
     </div>
 
   </div>
 
   <!-- DRAWING -->
-
   <div id="drawing" class="section">
 
-    <h2>Drawing Pad</h2>
+    <h2>🎨 Drawing Pad</h2>
+
+    <div class="tools">
+
+      <button onclick="setColor('black')">⚫</button>
+      <button onclick="setColor('red')">🔴</button>
+      <button onclick="setColor('blue')">🔵</button>
+      <button onclick="setColor('green')">🟢</button>
+
+      <button onclick="eraser()">❌ Eraser</button>
+
+      <select onchange="setBrush(this.value)">
+        <option value="3">Small</option>
+        <option value="6" selected>Medium</option>
+        <option value="12">Big</option>
+      </select>
+
+    </div>
 
     <canvas id="canvas"></canvas>
 
-    <button class="clear-btn" onclick="clearCanvas()">
-      Clear Drawing
-    </button>
+    <button onclick="clearCanvas()">Clear</button>
 
   </div>
 
-<div class="tools">
-
-  <button onclick="changeColor('red')" class="color red"></button>
-
-  <button onclick="changeColor('blue')" class="color blue"></button>
-
-  <button onclick="changeColor('green')" class="color green"></button>
-
-  <button onclick="changeColor('yellow')" class="color yellow"></button>
-
-  <button onclick="changeColor('purple')" class="color purple"></button>
-
-  <button onclick="changeColor('black')" class="color black"></button>
-
-  <button onclick="eraserMode()" class="tool-btn">
-    ❌ Eraser
-  </button>
-
-  <select onchange="changeBrush(this.value)" class="brush-select">
-
-    <option value="3">Small Brush</option>
-
-    <option value="6" selected>Medium Brush</option>
-
-    <option value="12">Big Brush</option>
-
-    <option value="20">Magic Brush</option>
-
-  </select>
-
 </div>
 
-  <script src="script.js"></script>
-<canvas id="canvas"></canvas>
-
+<script src="script.js"></script>
 </body>
 </html>
