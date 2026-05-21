@@ -1,150 +1,187 @@
+/* FIREBASE */
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* GLOBAL */
 let stars = 0;
 let level = 1;
+let userId = null;
 
 /* LOGIN */
-function startApp(){
+function login(){
 
-  let name = document.getElementById("kidName").value;
+let email=document.getElementById("email").value;
+let pass=document.getElementById("pass").value;
 
-  if(name=="") return alert("Enter Name");
+auth.signInWithEmailAndPassword(email,pass)
+.catch(()=>auth.createUserWithEmailAndPassword(email,pass))
 
-  speak("Welcome " + name);
+.then(user=>{
 
-  document.getElementById("login").style.display="none";
-  document.getElementById("app").style.display="block";
+userId=user.user.uid;
 
-  playMusic();
+loadData();
 
-  loadAlphabet();
-  loadNumbers();
+document.getElementById("login").style.display="none";
+document.getElementById("app").style.display="block";
 
-  showSection("alphabets");
+loadABC();
+loadNUM();
+
+});
 }
 
-/* MUSIC */
-function playMusic(){
-  document.getElementById("bgmusic").play();
+/* LOAD DATA */
+function loadData(){
+
+db.collection("users").doc(userId).get().then(doc=>{
+
+if(doc.exists){
+stars=doc.data().stars;
+level=doc.data().level;
+update();
+}
+
+});
+}
+
+/* SAVE */
+function save(){
+db.collection("users").doc(userId).set({
+stars,level
+});
+}
+
+/* UPDATE UI */
+function update(){
+document.getElementById("status").innerText=
+"⭐ "+stars+" | 🏆 "+level;
 }
 
 /* SECTION */
-function showSection(id){
-
-  document.querySelectorAll(".section").forEach(s=>{
-    s.classList.remove("active");
-  });
-
-  document.getElementById(id).classList.add("active");
+function show(id){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 }
 
 /* SPEAK */
-function speak(text){
-  let msg = new SpeechSynthesisUtterance(text);
-  speechSynthesis.speak(msg);
+function sound(t){
+let s=new SpeechSynthesisUtterance(t);
+speechSynthesis.speak(s);
+addStar();
 }
 
-/* ALPHABET */
-function loadAlphabet(){
+/* ABC */
+function loadABC(){
 
-  let box = document.getElementById("alphabetBox");
+let box=document.getElementById("abcBox");
 
-  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let data=[
+"A Apple","B Ball","C Cat","D Dog","E Elephant",
+"F Fish","G Grapes","H Hen","I Ice","J Joker",
+"K Kite","L Lion","M Mango","N Nest","O Orange",
+"P Parrot","Q Queen","R Rabbit","S Sun","T Tiger",
+"U Umbrella","V Van","W Watch","X Xylophone","Y Yak","Z Zebra"
+];
 
-  for(let l of letters){
+let letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    let div = document.createElement("div");
-    div.className="animal";
-    div.innerHTML="🔤 "+l;
+for(let i=0;i<26;i++){
 
-    div.onclick=()=>{
-      speak(l + " for Apple");
-      addStar();
-    }
+let d=document.createElement("div");
+d.className="card";
+d.innerHTML="<h2>"+letters[i]+"</h2><p>"+data[i]+"</p>";
 
-    box.appendChild(div);
-  }
+d.onclick=()=>sound(data[i]);
+
+box.appendChild(d);
+}
 }
 
 /* NUMBERS */
-function loadNumbers(){
+function loadNUM(){
 
-  let box = document.getElementById("numberBox");
+let box=document.getElementById("numBox");
 
-  for(let i=1;i<=100;i++){
+for(let i=1;i<=100;i++){
 
-    let d = document.createElement("div");
-    d.className="animal";
-    d.innerHTML=i;
+let d=document.createElement("div");
+d.className="card";
+d.innerText=i;
 
-    d.onclick=()=>{
-      speak(i.toString());
-      addStar();
-    }
+d.onclick=()=>sound(i.toString());
 
-    box.appendChild(d);
-  }
+box.appendChild(d);
+}
 }
 
-/* ANIMALS */
-function speak(text){
-  let msg=new SpeechSynthesisUtterance(text);
-  speechSynthesis.speak(msg);
-}
-
-/* ⭐ REWARD SYSTEM */
+/* ⭐ STAR SYSTEM */
 function addStar(){
 
-  stars++;
+stars++;
 
-  if(stars%10==0){
-    level++;
-    speak("Level Up!");
-  }
+if(stars%10==0) level++;
 
-  document.getElementById("status").innerText=
-  "⭐ Stars: "+stars+" | 🏆 Level: "+level;
+update();
+save();
 }
 
-/* 🎈 BALLOON GAME */
-function startBalloon(){
+/* 🎈 BALLOON */
+function balloons(){
 
-  let game=document.getElementById("gameArea");
+let g=document.getElementById("game");
+g.innerHTML="";
 
-  game.innerHTML="";
+for(let i=0;i<10;i++){
 
-  for(let i=0;i<10;i++){
+let b=document.createElement("div");
+b.innerHTML="🎈";
+b.style.position="absolute";
+b.style.left=Math.random()*250+"px";
+b.style.top=Math.random()*250+"px";
+b.style.fontSize="40px";
 
-    let b=document.createElement("div");
+b.onclick=()=>{
+b.remove();
+sound("Pop");
+};
 
-    b.innerHTML="🎈";
-    b.style.position="absolute";
-    b.style.left=Math.random()*250+"px";
-    b.style.top=Math.random()*250+"px";
-    b.style.fontSize="40px";
-    b.style.cursor="pointer";
-
-    b.onclick=()=>{
-      b.remove();
-      speak("Pop");
-      addStar();
-    }
-
-    game.appendChild(b);
-  }
+g.appendChild(b);
+}
 }
 
-/* 🎮 MINI GAME */
-let q=1;
+/* 🎨 DRAW */
+let canvas=document.getElementById("canvas");
+let ctx=canvas.getContext("2d");
 
-setTimeout(()=>{
-  document.getElementById("question").innerText="What is Apple?";
-},1000);
+canvas.width=300;
+canvas.height=300;
 
-function answer(n){
+let draw=false;
 
-  if(n==1){
-    speak("Correct");
-    addStar();
-  }else{
-    speak("Try Again");
-  }
+canvas.onmousedown=()=>draw=true;
+canvas.onmouseup=()=>{draw=false;ctx.beginPath();}
+
+canvas.onmousemove=(e)=>{
+
+if(!draw) return;
+
+ctx.lineWidth=4;
+ctx.strokeStyle="pink";
+
+ctx.lineTo(e.offsetX,e.offsetY);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(e.offsetX,e.offsetY);
+};
+
+function clearCanvas(){
+ctx.clearRect(0,0,300,300);
 }
