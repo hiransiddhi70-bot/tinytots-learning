@@ -83,9 +83,9 @@ canvas.addEventListener("mousemove",draw);
 canvas.addEventListener("touchstart",start);
 canvas.addEventListener("touchend",end);
 canvas.addEventListener("touchmove",draw);
-let currentColor = "#ff69b4";
 
-let brushSize = 6;
+ctx.lineWidth = brushSize;
+ctx.strokeStyle = currentColor;
 
 function start(e){
   drawing = true;
