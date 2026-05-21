@@ -1,140 +1,124 @@
+let currentColor = "black";
+let brush = 5;
+
+function startApp(){
+
+  let name = document.getElementById("kidName").value;
+
+  if(name==""){
+    alert("Enter name!");
+    return;
+  }
+
+  speak("Welcome " + name);
+
+  document.getElementById("login").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  showSection("alphabets");
+}
+
+/* SECTION SWITCH */
 function showSection(id){
 
-  let sections = document.querySelectorAll(".section");
+  let all = document.querySelectorAll(".section");
 
-  sections.forEach(section=>{
-    section.classList.remove("active");
-  });
+  all.forEach(s=>s.classList.remove("active"));
 
   document.getElementById(id).classList.add("active");
 }
 
+/* SPEAK */
 function speak(text){
 
-  let speech = new SpeechSynthesisUtterance(text);
-
-  speech.rate = 0.9;
-  speech.pitch = 1.2;
-
-  speechSynthesis.speak(speech);
+  let msg = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(msg);
 }
 
-const numbersGrid = document.getElementById("numbersGrid");
+/* ALPHABETS */
+let alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-const numberWords = [
-"One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
-"Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty"
-];
+let box = document.getElementById("alphabetBox");
+
+alpha.forEach(a=>{
+
+  let div = document.createElement("div");
+  div.className = "animal-card";
+  div.innerHTML = `<h2>${a}</h2>`;
+
+  div.onclick = ()=>speak(a + " for learning");
+
+  box.appendChild(div);
+});
+
+/* NUMBERS */
+let numBox = document.getElementById("numbersBox");
 
 for(let i=1;i<=100;i++){
 
-  let box = document.createElement("div");
+  let d = document.createElement("div");
+  d.className="animal-card";
+  d.innerHTML=i;
 
-  box.className = "number-box";
+  d.onclick=()=>speak(i.toString());
 
-  let word = i <= 20 ? numberWords[i-1] : i;
-
-  box.innerHTML = `
-    <h2>${i}</h2>
-    <p>${word}</p>
-  `;
-
-  box.onclick = ()=>{
-    speak(i.toString());
-  };
-
-  numbersGrid.appendChild(box);
+  numBox.appendChild(d);
 }
 
-function playAnimal(animal){
+/* ANIMALS */
+function playAnimal(type){
 
   let sound = "";
 
-  if(animal=="dog"){
-    sound = "Woof Woof";
-  }
-
-  if(animal=="cat"){
-    sound = "Meow";
-  }
-
-  if(animal=="lion"){
-    sound = "Roar";
-  }
+  if(type=="dog") sound="Woof Woof";
+  if(type=="cat") sound="Meow Meow";
+  if(type=="lion") sound="Roar";
+  if(type=="cow") sound="Moo";
+  if(type=="duck") sound="Quack";
 
   speak(sound);
 }
 
 /* DRAWING */
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
 
-const canvas = document.getElementById("canvas");
+canvas.width = window.innerWidth;
 
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth - 40;
-canvas.height = 400;
-
-let drawing = false;
+let draw = false;
 
 canvas.addEventListener("mousedown",start);
-canvas.addEventListener("mouseup",end);
-canvas.addEventListener("mousemove",draw);
+canvas.addEventListener("mouseup",stop);
+canvas.addEventListener("mousemove",drawFn);
 
-canvas.addEventListener("touchstart",start);
-canvas.addEventListener("touchend",end);
-canvas.addEventListener("touchmove",draw);
+function start(){ draw=true; }
+function stop(){ draw=false; ctx.beginPath(); }
 
-ctx.lineWidth = brushSize;
-ctx.strokeStyle = currentColor;
+function drawFn(e){
 
-function start(e){
-  drawing = true;
-  draw(e);
-}
+  if(!draw) return;
 
-function end(){
-  drawing = false;
-  ctx.beginPath();
-}
+  ctx.lineWidth = brush;
+  ctx.strokeStyle = currentColor;
 
-function draw(e){
-
-  if(!drawing) return;
-
-  e.preventDefault();
-
-  let rect = canvas.getBoundingClientRect();
-
-  let x = e.touches ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
-
-  let y = e.touches ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
-
-  ctx.lineWidth = 6;
-  ctx.lineCap = "round";
-  ctx.strokeStyle = "#ff69b4";
-
-  ctx.lineTo(x,y);
+  ctx.lineTo(e.clientX, e.clientY);
   ctx.stroke();
-
   ctx.beginPath();
-  ctx.moveTo(x,y);
+  ctx.moveTo(e.clientX, e.clientY);
+}
+
+function setColor(c){
+  currentColor=c;
+}
+
+function setBrush(b){
+  brush=b;
+}
+
+function eraser(){
+  currentColor="white";
 }
 
 function clearCanvas(){
-
   ctx.clearRect(0,0,canvas.width,canvas.height);
-}
-function changeColor(color){
-
-  currentColor = color;
-}
-
-function changeBrush(size){
-
-  brushSize = size;
-}
-
-function eraserMode(){
-
-  currentColor = "white";
 }
