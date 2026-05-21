@@ -4,14 +4,14 @@ body{
   background:#fff0f5;
 }
 
-h1{
-  text-align:center;
-}
+.section{display:none;padding:15px;}
+.active{display:block;}
 
 .topbar{
   background:linear-gradient(45deg,#ff9ec4,#ffd166);
+  text-align:center;
   color:white;
-  padding:15px;
+  padding:10px;
 }
 
 .menu{
@@ -19,24 +19,14 @@ h1{
   overflow:auto;
   gap:10px;
   padding:10px;
-  background:white;
 }
 
 .menu button{
-  padding:10px 15px;
-  border:none;
-  border-radius:15px;
   background:#ff69b4;
+  border:none;
   color:white;
-}
-
-.section{
-  display:none;
-  padding:15px;
-}
-
-.active{
-  display:block;
+  padding:10px;
+  border-radius:12px;
 }
 
 .card-container{
@@ -45,26 +35,21 @@ h1{
   gap:10px;
 }
 
-.numbers-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-.animal-card{
+.animal{
   background:white;
   padding:15px;
   border-radius:15px;
-  text-align:center;
 }
 
-.tools button{
-  margin:5px;
+.numbers-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
 }
 
-canvas{
-  width:100%;
+#gameArea{
   height:300px;
-  background:white;
-  border:2px dashed pink;
+  position:relative;
+  background:#fff;
+  overflow:hidden;
 }
