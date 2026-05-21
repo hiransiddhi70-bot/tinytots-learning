@@ -124,3 +124,17 @@ function clearCanvas(){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
 }
+function changeColor(color){
+
+  currentColor = color;
+}
+
+function changeBrush(size){
+
+  brushSize = size;
+}
+
+function eraserMode(){
+
+  currentColor = "white";
+}
