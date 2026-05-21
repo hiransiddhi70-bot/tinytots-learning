@@ -3,120 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TinyTots Learning</title>
+  <title>TinyTots Ultimate</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="login" class="section active">
 
-  <h1>🌈 TinyTots Learning</h1>
-  <p>Enter your name 👶</p>
+  <h1>🌈 TinyTots Ultimate</h1>
 
-  <input id="kidName" placeholder="Your Name">
+  <input id="kidName" placeholder="Enter Name 👶">
 
-  <button onclick="startApp()">Start Learning 🚀</button>
+  <button onclick="startApp()">Start 🚀</button>
 
 </div>
 
-<!-- MAIN APP -->
+<!-- APP -->
 <div id="app">
 
   <div class="topbar">
-    <h1>🌈 TinyTots Learning</h1>
+    <h1>🌈 TinyTots</h1>
+    <p id="status">⭐ Stars: 0 | 🏆 Level: 1</p>
   </div>
 
   <div class="menu">
 
-    <button onclick="showSection('alphabets')">🔤 Alphabets</button>
+    <button onclick="showSection('alphabets')">🔤 ABC</button>
     <button onclick="showSection('numbers')">🔢 Numbers</button>
     <button onclick="showSection('animals')">🐶 Animals</button>
-    <button onclick="showSection('rhymes')">🎵 Rhymes</button>
-    <button onclick="showSection('drawing')">🎨 Drawing</button>
+    <button onclick="showSection('balloon')">🎈 Game</button>
+    <button onclick="showSection('mini')">🎮 Quiz</button>
 
   </div>
 
   <!-- ALPHABETS -->
   <div id="alphabets" class="section">
-
-    <h2>Learn A to Z</h2>
-
-    <div class="card-container" id="alphabetBox"></div>
-
+    <h2>A to Z</h2>
+    <div id="alphabetBox" class="card-container"></div>
   </div>
 
   <!-- NUMBERS -->
   <div id="numbers" class="section">
-
-    <h2>Numbers 1–100</h2>
-
-    <div class="numbers-grid" id="numbersBox"></div>
-
+    <h2>1 to 100</h2>
+    <div id="numberBox" class="numbers-grid"></div>
   </div>
 
   <!-- ANIMALS -->
   <div id="animals" class="section">
-
-    <h2>Animals & Sounds</h2>
+    <h2>Animals</h2>
 
     <div class="card-container">
 
-      <div class="animal-card" onclick="playAnimal('dog')">🐶 Dog</div>
-      <div class="animal-card" onclick="playAnimal('cat')">🐱 Cat</div>
-      <div class="animal-card" onclick="playAnimal('lion')">🦁 Lion</div>
-      <div class="animal-card" onclick="playAnimal('cow')">🐄 Cow</div>
-      <div class="animal-card" onclick="playAnimal('duck')">🦆 Duck</div>
+      <div class="animal" onclick="speak('Dog Woof')">🐶 Dog</div>
+      <div class="animal" onclick="speak('Cat Meow')">🐱 Cat</div>
+      <div class="animal" onclick="speak('Lion Roar')">🦁 Lion</div>
+      <div class="animal" onclick="speak('Cow Moo')">🐄 Cow</div>
 
     </div>
 
   </div>
 
-  <!-- RHYMES -->
-  <div id="rhymes" class="section">
+  <!-- 🎈 BALLOON GAME -->
+  <div id="balloon" class="section">
 
-    <h2>🎵 Nursery Rhymes</h2>
+    <h2>🎈 Pop Balloons</h2>
 
-    <div class="reading-box">
+    <button onclick="startBalloon()">Start Game</button>
 
-      <p onclick="speak('Twinkle Twinkle Little Star')">🌟 Twinkle Twinkle</p>
-      <p onclick="speak('Johny Johny Yes Papa')">👶 Johny Johny</p>
-      <p onclick="speak('Baa Baa Black Sheep')">🐑 Black Sheep</p>
-
-    </div>
+    <div id="gameArea"></div>
 
   </div>
 
-  <!-- DRAWING -->
-  <div id="drawing" class="section">
+  <!-- 🎮 MINI GAME -->
+  <div id="mini" class="section">
 
-    <h2>🎨 Drawing Pad</h2>
+    <h2>🎮 Quiz Game</h2>
 
-    <div class="tools">
+    <p id="question"></p>
 
-      <button onclick="setColor('black')">⚫</button>
-      <button onclick="setColor('red')">🔴</button>
-      <button onclick="setColor('blue')">🔵</button>
-      <button onclick="setColor('green')">🟢</button>
-
-      <button onclick="eraser()">❌ Eraser</button>
-
-      <select onchange="setBrush(this.value)">
-        <option value="3">Small</option>
-        <option value="6" selected>Medium</option>
-        <option value="12">Big</option>
-      </select>
-
-    </div>
-
-    <canvas id="canvas"></canvas>
-
-    <button onclick="clearCanvas()">Clear</button>
+    <button onclick="answer(1)">Apple</button>
+    <button onclick="answer(2)">Banana</button>
+    <button onclick="answer(3)">Cat</button>
 
   </div>
 
 </div>
+
+<!-- MUSIC -->
+<audio id="bgmusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
 
 <script src="script.js"></script>
 </body>
