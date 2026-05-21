@@ -1,124 +1,150 @@
-let currentColor = "black";
-let brush = 5;
+let stars = 0;
+let level = 1;
 
+/* LOGIN */
 function startApp(){
 
   let name = document.getElementById("kidName").value;
 
-  if(name==""){
-    alert("Enter name!");
-    return;
-  }
+  if(name=="") return alert("Enter Name");
 
   speak("Welcome " + name);
 
-  document.getElementById("login").style.display = "none";
-  document.getElementById("app").style.display = "block";
+  document.getElementById("login").style.display="none";
+  document.getElementById("app").style.display="block";
+
+  playMusic();
+
+  loadAlphabet();
+  loadNumbers();
 
   showSection("alphabets");
 }
 
-/* SECTION SWITCH */
+/* MUSIC */
+function playMusic(){
+  document.getElementById("bgmusic").play();
+}
+
+/* SECTION */
 function showSection(id){
 
-  let all = document.querySelectorAll(".section");
-
-  all.forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s=>{
+    s.classList.remove("active");
+  });
 
   document.getElementById(id).classList.add("active");
 }
 
 /* SPEAK */
 function speak(text){
-
   let msg = new SpeechSynthesisUtterance(text);
   speechSynthesis.speak(msg);
 }
 
-/* ALPHABETS */
-let alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+/* ALPHABET */
+function loadAlphabet(){
 
-let box = document.getElementById("alphabetBox");
+  let box = document.getElementById("alphabetBox");
 
-alpha.forEach(a=>{
+  let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  let div = document.createElement("div");
-  div.className = "animal-card";
-  div.innerHTML = `<h2>${a}</h2>`;
+  for(let l of letters){
 
-  div.onclick = ()=>speak(a + " for learning");
+    let div = document.createElement("div");
+    div.className="animal";
+    div.innerHTML="🔤 "+l;
 
-  box.appendChild(div);
-});
+    div.onclick=()=>{
+      speak(l + " for Apple");
+      addStar();
+    }
+
+    box.appendChild(div);
+  }
+}
 
 /* NUMBERS */
-let numBox = document.getElementById("numbersBox");
+function loadNumbers(){
 
-for(let i=1;i<=100;i++){
+  let box = document.getElementById("numberBox");
 
-  let d = document.createElement("div");
-  d.className="animal-card";
-  d.innerHTML=i;
+  for(let i=1;i<=100;i++){
 
-  d.onclick=()=>speak(i.toString());
+    let d = document.createElement("div");
+    d.className="animal";
+    d.innerHTML=i;
 
-  numBox.appendChild(d);
+    d.onclick=()=>{
+      speak(i.toString());
+      addStar();
+    }
+
+    box.appendChild(d);
+  }
 }
 
 /* ANIMALS */
-function playAnimal(type){
-
-  let sound = "";
-
-  if(type=="dog") sound="Woof Woof";
-  if(type=="cat") sound="Meow Meow";
-  if(type=="lion") sound="Roar";
-  if(type=="cow") sound="Moo";
-  if(type=="duck") sound="Quack";
-
-  speak(sound);
+function speak(text){
+  let msg=new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(msg);
 }
 
-/* DRAWING */
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+/* ⭐ REWARD SYSTEM */
+function addStar(){
 
-canvas.width = window.innerWidth;
+  stars++;
 
-let draw = false;
+  if(stars%10==0){
+    level++;
+    speak("Level Up!");
+  }
 
-canvas.addEventListener("mousedown",start);
-canvas.addEventListener("mouseup",stop);
-canvas.addEventListener("mousemove",drawFn);
-
-function start(){ draw=true; }
-function stop(){ draw=false; ctx.beginPath(); }
-
-function drawFn(e){
-
-  if(!draw) return;
-
-  ctx.lineWidth = brush;
-  ctx.strokeStyle = currentColor;
-
-  ctx.lineTo(e.clientX, e.clientY);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(e.clientX, e.clientY);
+  document.getElementById("status").innerText=
+  "⭐ Stars: "+stars+" | 🏆 Level: "+level;
 }
 
-function setColor(c){
-  currentColor=c;
+/* 🎈 BALLOON GAME */
+function startBalloon(){
+
+  let game=document.getElementById("gameArea");
+
+  game.innerHTML="";
+
+  for(let i=0;i<10;i++){
+
+    let b=document.createElement("div");
+
+    b.innerHTML="🎈";
+    b.style.position="absolute";
+    b.style.left=Math.random()*250+"px";
+    b.style.top=Math.random()*250+"px";
+    b.style.fontSize="40px";
+    b.style.cursor="pointer";
+
+    b.onclick=()=>{
+      b.remove();
+      speak("Pop");
+      addStar();
+    }
+
+    game.appendChild(b);
+  }
 }
 
-function setBrush(b){
-  brush=b;
-}
+/* 🎮 MINI GAME */
+let q=1;
 
-function eraser(){
-  currentColor="white";
-}
+setTimeout(()=>{
+  document.getElementById("question").innerText="What is Apple?";
+},1000);
 
-function clearCanvas(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+function answer(n){
+
+  if(n==1){
+    speak("Correct");
+    addStar();
+  }else{
+    speak("Try Again");
+  }
 }
