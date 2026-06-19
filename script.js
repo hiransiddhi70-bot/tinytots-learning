@@ -1,187 +1,145 @@
-/* FIREBASE */
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_ID",
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-/* GLOBAL */
-let stars = 0;
-let level = 1;
-let userId = null;
-
-/* LOGIN */
-function login(){
-
-let email=document.getElementById("email").value;
-let pass=document.getElementById("pass").value;
-
-auth.signInWithEmailAndPassword(email,pass)
-.catch(()=>auth.createUserWithEmailAndPassword(email,pass))
-
-.then(user=>{
-
-userId=user.user.uid;
-
-loadData();
-
-document.getElementById("login").style.display="none";
-document.getElementById("app").style.display="block";
-
-loadABC();
-loadNUM();
-
-});
+// Google Login
+function handleLogin(response) {
+  const data = parseJwt(response.credential);
+  localStorage.setItem('tinytoys_user', JSON.stringify(data));
+  loadUser();
 }
 
-/* LOAD DATA */
-function loadData(){
-
-db.collection("users").doc(userId).get().then(doc=>{
-
-if(doc.exists){
-stars=doc.data().stars;
-level=doc.data().level;
-update();
+function parseJwt(token) {
+  return JSON.parse(atob(token.split('.')[1]));
 }
 
-});
+function loadUser() {
+  const user = localStorage.getItem('tinytoys_user');
+  if(user) {
+    const data = JSON.parse(user);
+    document.getElementById('userName').innerText = data.given_name || data.name;
+    document.getElementById('userPic').src = data.picture;
+    document.getElementById('loginDiv').style.display = 'none';
+    document.getElementById('appDiv').style.display = 'block';
+    show('alphabet');
+  }
 }
 
-/* SAVE */
-function save(){
-db.collection("users").doc(userId).set({
-stars,level
-});
+function logout() {
+  localStorage.removeItem('tinytoys_user');
+  location.reload();
 }
 
-/* UPDATE UI */
-function update(){
-document.getElementById("status").innerText=
-"⭐ "+stars+" | 🏆 "+level;
+// Menu Navigation
+const sections = ['alphabet','numbers','animals','draw','math'];
+function show(id) {
+  sections.forEach(s => document.getElementById(s).style.display = 'none');
+  document.getElementById(id).style.display = 'block';
 }
 
-/* SECTION */
-function show(id){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-}
+// Alphabets
+const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const spellings = {A:'Apple',B:'Ball',C:'Cat',D:'Dog',E:'Elephant',F:'Fish',G:'Goat',H:'Hat',I:'Ice',J:'Jug',K:'Kite',L:'Lion',M:'Monkey',N:'Nest',O:'Orange',P:'Parrot',Q:'Queen',R:'Rat',S:'Sun',T:'Tiger',U:'Umbrella',V:'Van',W:'Watch',X:'Xray',Y:'Yak',Z:'Zebra'};
+document.getElementById('alphaGrid').innerHTML = alphabets.map(a =>
+  `<div class="card" onclick="speak('${a} for ${spellings[a]}')"><b>${a}</b><br>${spellings[a]}</div>`
+).join('');
 
-/* SPEAK */
-function sound(t){
-let s=new SpeechSynthesisUtterance(t);
-speechSynthesis.speak(s);
-addStar();
-}
+// Numbers
+const numWords = ['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'];
+document.getElementById('numGrid').innerHTML = numWords.map((n,i) =>
+  `<div class="card" onclick="speak('${i+1} ${n}')"><b>${i+1}</b><br>${n}</div>`
+).join('');
 
-/* ABC */
-function loadABC(){
-
-let box=document.getElementById("abcBox");
-
-let data=[
-"A Apple","B Ball","C Cat","D Dog","E Elephant",
-"F Fish","G Grapes","H Hen","I Ice","J Joker",
-"K Kite","L Lion","M Mango","N Nest","O Orange",
-"P Parrot","Q Queen","R Rabbit","S Sun","T Tiger",
-"U Umbrella","V Van","W Watch","X Xylophone","Y Yak","Z Zebra"
+// Animals
+const animals = [
+  {name:'Cow', sound:'Moo', emoji:'🐄'},
+  {name:'Dog', sound:'Woof', emoji:'🐶'},
+  {name:'Cat', sound:'Meow', emoji:'🐱'},
+  {name:'Lion', sound:'Roar', emoji:'🦁'},
+  {name:'Duck', sound:'Quack', emoji:'🦆'},
+  {name:'Elephant', sound:'Trumpet', emoji:'🐘'}
 ];
+document.getElementById('animalGrid').innerHTML = animals.map(a =>
+  `<div class="card" onclick="speak('${a.name} says ${a.sound}')">${a.emoji}<br>${a.name}</div>`
+).join('');
 
-let letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+// Drawing Pad
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
 
-for(let i=0;i<26;i++){
-
-let d=document.createElement("div");
-d.className="card";
-d.innerHTML="<h2>"+letters[i]+"</h2><p>"+data[i]+"</p>";
-
-d.onclick=()=>sound(data[i]);
-
-box.appendChild(d);
-}
-}
-
-/* NUMBERS */
-function loadNUM(){
-
-let box=document.getElementById("numBox");
-
-for(let i=1;i<=100;i++){
-
-let d=document.createElement("div");
-d.className="card";
-d.innerText=i;
-
-d.onclick=()=>sound(i.toString());
-
-box.appendChild(d);
-}
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  if(e.touches) {
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
+    };
+  }
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
 }
 
-/* ⭐ STAR SYSTEM */
-function addStar(){
-
-stars++;
-
-if(stars%10==0) level++;
-
-update();
-save();
+function startDraw(e) {
+  drawing = true;
+  draw(e);
 }
 
-/* 🎈 BALLOON */
-function balloons(){
+function endDraw() { drawing = false; }
 
-let g=document.getElementById("game");
-g.innerHTML="";
-
-for(let i=0;i<10;i++){
-
-let b=document.createElement("div");
-b.innerHTML="🎈";
-b.style.position="absolute";
-b.style.left=Math.random()*250+"px";
-b.style.top=Math.random()*250+"px";
-b.style.fontSize="40px";
-
-b.onclick=()=>{
-b.remove();
-sound("Pop");
-};
-
-g.appendChild(b);
-}
+function draw(e) {
+  if(!drawing) return;
+  e.preventDefault();
+  const pos = getPos(e);
+  ctx.fillStyle = document.getElementById('colorPicker').value;
+  ctx.beginPath();
+  ctx.arc(pos.x, pos.y, document.getElementById('brushSize').value, 0, 2 * Math.PI);
+  ctx.fill();
 }
 
-/* 🎨 DRAW */
-let canvas=document.getElementById("canvas");
-let ctx=canvas.getContext("2d");
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mouseup', endDraw);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('touchstart', startDraw);
+canvas.addEventListener('touchend', endDraw);
+canvas.addEventListener('touchmove', draw);
 
-canvas.width=300;
-canvas.height=300;
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
-let draw=false;
+// Math Game
+let ans = 0;
+function newQuestion() {
+  let a = Math.floor(Math.random()*5)+1;
+  let b = Math.floor(Math.random()*5)+1;
+  let op = Math.random() > 0.5? '+' : '-';
+  if(op === '-' && a < b) [a,b] = [b,a];
+  ans = op === '+'? a+b : a-b;
+  document.getElementById('question').innerText = `${a} ${op} ${b} =?`;
+  document.getElementById('result').innerText = '';
+  document.getElementById('answer').value = '';
+}
 
-canvas.onmousedown=()=>draw=true;
-canvas.onmouseup=()=>{draw=false;ctx.beginPath();}
+function checkAnswer() {
+  const userAns = parseInt(document.getElementById('answer').value);
+  const user = JSON.parse(localStorage.getItem('tinytoys_user'));
+  const kidName = user? user.given_name || user.name.split(' ')[0] : 'Champion';
 
-canvas.onmousemove=(e)=>{
+  if(userAns === ans) {
+    document.getElementById('result').innerText = `✅ Wow ${kidName} you did it!`;
+    speak(`Wow ${kidName}! You did it! Wow!`);
+    setTimeout(newQuestion, 2000);
+  } else {
+    document.getElementById('result').innerText = `❌ Try Again ${kidName}! Ans: ${ans}`;
+    speak(`Try again ${kidName}`);
+    setTimeout(newQuestion, 2000);
+  }
+}
 
-if(!draw) return;
+// Speech
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(msg);
+}
 
-ctx.lineWidth=4;
-ctx.strokeStyle="pink";
-
-ctx.lineTo(e.offsetX,e.offsetY);
-ctx.stroke();
-ctx.beginPath();
-ctx.moveTo(e.offsetX,e.offsetY);
-};
-
-function clearCanvas(){
-ctx.clearRect(0,0,300,300);
+// Init
+window.onload = function() {
+  loadUser();
+  newQuestion();
 }
