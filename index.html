@@ -5,21 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TinyToys - LKG UKG Learning</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
   <div id="loginDiv">
     <h1>🎈 TinyToys 🎨</h1>
-    <p>Login to start learning!</p>
-    <div id="g_id_onload"
-         data-client_id="YOUR_GOOGLE_CLIENT_ID"
-         data-callback="handleLogin">
-    </div>
-    <div class="g_id_signin" data-type="standard" data-size="large"></div>
+    <p>Apna naam likho baccha:</p>
+    <input type="text" id="nameInput" placeholder="Your name">
+    <button onclick="simpleLogin()">Start Learning</button>
   </div>
 
   <div id="appDiv" style="display:none;">
     <div class="header">
       <img id="userPic" width="40" style="border-radius:50%">
       <h1>🎈 Hi <span id="userName"></span>! 🎨</h1>
-      <button onclick="logout()" class="logout">
+      <button onclick="logout()" class="logout">Logout</button>
+    </div>
+
+    <div class="menu">
+      <button onclick="show('alphabet')">A-Z Alphabet</button>
+      <button onclick="show('numbers')">1-10 Numbers</button>
+      <button onclick="show('animals')">Animals</button>
+      <button onclick="show('draw')">Drawing Pad</button>
+      <button onclick="show('math')">Math Games</button>
+    </div>
+
+    <div id="alphabet" class="section">
+      <h2>Alphabets & Spellings</h2>
+      <div id="alphaGrid"></div>
+    </div>
+
+    <div id="numbers" class="section">
+      <h2>Numbers 1-10</h2>
+      <div id="numGrid"></div>
+    </div>
+
+    <div id="animals" class="section">
+      <h2>Animals & Sounds</h2>
+      <div id="animalGrid"></div>
+    </div>
+
+    <div id="draw" class="section">
+      <h2>Drawing Pad</h2>
+      <input type="color" id="colorPicker" value="#ff0000">
+      <input type="range" id="brushSize" min="2" max="20" value="5">
+      <button onclick="clearCanvas()">Erase</button>
+      <br><br>
+      <canvas id="canvas" width="300" height="300"></canvas>
+    </div>
+
+    <div id="math" class="section">
+      <h2>Math Games</h2>
+      <p id="question"></p>
+      <input type="number" id="answer" placeholder="Your answer">
+      <button onclick="checkAnswer()">Check</button>
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
