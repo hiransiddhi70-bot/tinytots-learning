@@ -1,101 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TinyTots Ultimate</title>
-
-<link rel="stylesheet" href="style.css">
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TinyToys - LKG UKG Learning</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-
 <body>
-
-<!-- LOGIN -->
-<div id="login" class="section active">
-
-  <h1>🌈 TinyTots Login</h1>
-
-  <input id="email" placeholder="Email">
-  <input id="pass" type="password" placeholder="Password">
-
-  <button onclick="login()">Login / Signup</button>
-
-</div>
-
-<!-- APP -->
-<div id="app">
-
-  <div class="topbar">
-    <h1>🌈 TinyTots</h1>
-    <p id="status">⭐ 0 | 🏆 Level 1</p>
-  </div>
-
-  <div class="menu">
-    <button onclick="show('abc')">🔤 ABC</button>
-    <button onclick="show('num')">🔢 1-100</button>
-    <button onclick="show('ani')">🐶 Animals</button>
-    <button onclick="show('ball')">🎈 Game</button>
-    <button onclick="show('draw')">🎨 Draw</button>
-  </div>
-
-  <!-- ABC -->
-  <div id="abc" class="section">
-    <h2>Alphabet A-Z</h2>
-    <div id="abcBox" class="grid"></div>
-  </div>
-
-  <!-- NUM -->
-  <div id="num" class="section">
-    <h2>Numbers</h2>
-    <div id="numBox" class="grid"></div>
-  </div>
-
-  <!-- ANIMALS -->
-  <div id="ani" class="section">
-
-    <h2>Animals</h2>
-
-    <div class="grid">
-
-      <div class="card" onclick="sound('Dog Woof')">🐶 Dog</div>
-      <div class="card" onclick="sound('Cat Meow')">🐱 Cat</div>
-      <div class="card" onclick="sound('Lion Roar')">🦁 Lion</div>
-      <div class="card" onclick="sound('Cow Moo')">🐄 Cow</div>
-
+  <div id="loginDiv">
+    <h1>🎈 TinyToys 🎨</h1>
+    <p>Login to start learning!</p>
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID"
+         data-callback="handleLogin">
     </div>
-
+    <div class="g_id_signin" data-type="standard" data-size="large"></div>
   </div>
 
-  <!-- BALLOON -->
-  <div id="ball" class="section">
-
-    <h2>🎈 Balloon Game</h2>
-
-    <button onclick="balloons()">Start</button>
-
-    <div id="game"></div>
-
-  </div>
-
-  <!-- DRAW -->
-  <div id="draw" class="section">
-
-    <h2>🎨 Drawing</h2>
-
-    <button onclick="clearCanvas()">Clear</button>
-
-    <canvas id="canvas"></canvas>
-
-  </div>
-
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+  <div id="appDiv" style="display:none;">
+    <div class="header">
+      <img id="userPic" width="40" style="border-radius:50%">
+      <h1>🎈 Hi <span id="userName"></span>! 🎨</h1>
+      <button onclick="logout()" class="logout">
