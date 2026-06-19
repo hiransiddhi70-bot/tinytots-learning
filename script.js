@@ -1,12 +1,14 @@
-// Google Login
-function handleLogin(response) {
-  const data = parseJwt(response.credential);
+// Simple Name Login - No Google needed
+function simpleLogin() {
+  const name = document.getElementById('nameInput').value.trim();
+  if(!name) return alert('Naam to likho beta!');
+  const data = {
+    name: name,
+    given_name: name,
+    picture: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+  };
   localStorage.setItem('tinytoys_user', JSON.stringify(data));
   loadUser();
-}
-
-function parseJwt(token) {
-  return JSON.parse(atob(token.split('.')[1]));
 }
 
 function loadUser() {
