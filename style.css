@@ -22,34 +22,66 @@ h2 { color: #4ecdc4; }
   border-radius: 8px;
   cursor: pointer;
 }
+.music-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+  display: flex;
+  gap: 5px;
+}
+.music-btn button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}
 .menu button {
   background: #4ecdc4;
   color: white;
   border: none;
-  padding: 10px 15px;
-  margin: 5px;
+  padding: 8px 12px;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 .menu button:hover { background: #45b7aa; }
 .section { display: none; margin-top: 20px; }
-#alphaGrid, #numGrid, #animalGrid {
+#alphaGrid, #numGrid, #animalGrid, #shapeGrid, #colorGrid, #vegGrid, #fruitGrid, #rhymeGrid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   max-width: 400px;
   margin: 20px auto;
 }
 .card {
   background: white;
-  padding: 15px;
+  padding: 12px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
 }
 .card:hover { transform: scale(1.05); }
+.rhyme-card {
+  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  padding: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+.rhyme-card:hover { transform: scale(1.05); }
 #canvas {
   border: 3px solid #4ecdc4;
   background: white;
@@ -83,17 +115,20 @@ input[type="number"] {
 }
 #question { font-size: 24px; font-weight: bold; }
 #result { font-size: 20px; margin-top: 10px; }
-.music-btn {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 999;
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 300px;
+  margin: 10px auto;
 }
-.music-btn button {
-  background: #ff6b6b;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 20px;
+.color-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #333;
   cursor: pointer;
 }
+.color-btn:active { transform: scale(0.9); }
+small { font-size: 11px; color: #666; }
