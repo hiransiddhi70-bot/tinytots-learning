@@ -1,50 +1,67 @@
-body{
-margin:0;
-font-family:Comic Sans MS;
-background:#fff0f5;
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-align: center;
+  background: #fff9e6;
+  margin: 0;
+  padding: 20px;
 }
-
-.section{display:none;padding:10px;}
-.active{display:block;}
-
-.topbar{
-background:linear-gradient(45deg,#ff9ec4,#ffd166);
-text-align:center;
-color:white;
-padding:10px;
+h1 { color: #ff6b6b; margin: 10px 0; }
+h2 { color: #4ecdc4; }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
-
-.menu{
-display:flex;
-gap:5px;
-overflow:auto;
-padding:10px;
+.logout {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
-
-button{
-background:#ff69b4;
-color:white;
-border:none;
-padding:10px;
-border-radius:10px;
+.menu button {
+  background: #4ecdc4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
+.menu button:hover { background: #45b7aa; }
+.section { display: none; margin-top: 20px; }
+#alphaGrid, #numGrid, #animalGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
 }
-
-.card{
-background:white;
-padding:10px;
-border-radius:10px;
-text-align:center;
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  font-size: 14px;
 }
-
-canvas{
-width:100%;
-height:300px;
-background:white;
-border:2px dashed pink;
+.card:hover { transform: scale(1.05); }
+#canvas {
+  border: 3px solid #4ecdc4;
+  background: white;
+  border-radius: 10px;
+  touch-action: none;
 }
+#loginDiv { margin-top: 100px; }
+input[type="number"] {
+  padding: 10px;
+  font-size: 18px;
+  width: 100px;
+  border-radius: 8px;
+  border: 2px solid #4ecdc4;
+}
+#question { font-size: 24px; font-weight: bold; }
+#result { font-size: 20px; margin-top: 10px; }
