@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TinyToys - LKG UKG Learning</title>
+  <title>TinyToys - Complete Nursery Pack</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="music-btn">
-  <button onclick="toggleMusic()" id="musicBtn">🔇 Music Off</button>
-</div>
+  <div class="music-btn">
+    <button onclick="toggleMusic()" id="musicBtn">🔇 Music</button>
+    <button onclick="toggleFullScreen()">⛶</button>
+  </div>
+
   <div id="loginDiv">
     <h1>🎈 TinyToys 🎨</h1>
     <p>Apna naam likho baccha:</p>
@@ -29,11 +31,16 @@
     </div>
 
     <div class="menu">
-      <button onclick="show('alphabet')">A-Z Alphabet</button>
-      <button onclick="show('numbers')">1-10 Numbers</button>
+      <button onclick="show('alphabet')">A-Z</button>
+      <button onclick="show('numbers')">123</button>
       <button onclick="show('animals')">Animals</button>
-      <button onclick="show('draw')">Drawing Pad</button>
-      <button onclick="show('math')">Math Games</button>
+      <button onclick="show('vegetables')">Veggies</button>
+      <button onclick="show('fruits')">Fruits</button>
+      <button onclick="show('shapes')">Shapes</button>
+      <button onclick="show('colors')">Colors</button>
+      <button onclick="show('draw')">Draw</button>
+      <button onclick="show('math')">Math</button>
+      <button onclick="show('rhymes')">Rhymes</button>
     </div>
 
     <div id="alphabet" class="section">
@@ -47,13 +54,46 @@
     </div>
 
     <div id="animals" class="section">
-      <h2>Animals & Sounds</h2>
+      <h2>Animals & Sounds 🐘</h2>
       <div id="animalGrid"></div>
+    </div>
+
+    <div id="vegetables" class="section">
+      <h2>Vegetables 🥕</h2>
+      <div id="vegGrid"></div>
+    </div>
+
+    <div id="fruits" class="section">
+      <h2>Fruits 🍎</h2>
+      <div id="fruitGrid"></div>
+    </div>
+
+    <div id="shapes" class="section">
+      <h2>Learn Shapes</h2>
+      <div id="shapeGrid"></div>
+    </div>
+
+    <div id="colors" class="section">
+      <h2>Learn Colors</h2>
+      <div id="colorGrid"></div>
     </div>
 
     <div id="draw" class="section">
       <h2>Drawing Pad</h2>
-      <input type="color" id="colorPicker" value="#ff0000">
+      <div class="color-palette">
+        <button class="color-btn" style="background:#000000" onclick="setColor('#000000')"></button>
+        <button class="color-btn" style="background:#ff0000" onclick="setColor('#ff0000')"></button>
+        <button class="color-btn" style="background:#0000ff" onclick="setColor('#0000ff')"></button>
+        <button class="color-btn" style="background:#00ff00" onclick="setColor('#00ff00')"></button>
+        <button class="color-btn" style="background:#ffff00" onclick="setColor('#ffff00')"></button>
+        <button class="color-btn" style="background:#ff69b4" onclick="setColor('#ff69b4')"></button>
+        <button class="color-btn" style="background:#ffa500" onclick="setColor('#ffa500')"></button>
+        <button class="color-btn" style="background:#800080" onclick="setColor('#800080')"></button>
+        <button class="color-btn" style="background:#a52a2a" onclick="setColor('#a52a2a')"></button>
+        <button class="color-btn" style="background:#00ffff" onclick="setColor('#00ffff')"></button>
+        <button class="color-btn" style="background:#ff00ff" onclick="setColor('#ff00ff')"></button>
+        <button class="color-btn" style="background:#ffffff; border:1px solid #ccc" onclick="setColor('#ffffff')"></button>
+      </div>
       <input type="range" id="brushSize" min="2" max="20" value="5">
       <button onclick="clearCanvas()">Erase</button>
       <br><br>
@@ -62,10 +102,16 @@
 
     <div id="math" class="section">
       <h2>Math Games</h2>
+      <p>Score: <span id="score">0</span> ⭐</p>
       <p id="question"></p>
       <input type="number" id="answer" placeholder="Your answer">
       <button onclick="checkAnswer()">Check</button>
       <p id="result"></p>
+    </div>
+
+    <div id="rhymes" class="section">
+      <h2>Nursery Rhymes 🎵</h2>
+      <div id="rhymeGrid"></div>
     </div>
   </div>
 
