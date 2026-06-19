@@ -145,3 +145,17 @@ window.onload = function() {
   loadUser();
   newQuestion();
 }
+let musicPlaying = false;
+function toggleMusic() {
+  const music = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if(musicPlaying) {
+    music.pause();
+    btn.innerText = '🔇 Music Off';
+    musicPlaying = false;
+  } else {
+    music.play();
+    btn.innerText = '🔊 Music On';
+    musicPlaying = true;
+  }
+}
